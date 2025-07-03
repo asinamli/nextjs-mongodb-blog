@@ -1,3 +1,35 @@
+Yeni Bileşenler:
+
+Admin paneli bileşenleri (AdminLayout, AuthLayout, vb.)
+SEO bileşeni
+Arama ve görüntüleme bileşenleri
+Zustand state management (authStore)
+API Geliştirmeleri:
+
+Auth endpoint'leri (login, logout, me)
+Blog post endpoint'leri
+Slug tabanlı erişim
+Güvenlik İyileştirmeleri:
+
+Middleware doğrulamaları
+Token kontrolleri
+Admin erişim koruması
+Diğer Geliştirmeler:
+
+TypeScript tip tanımlamaları
+MongoDB model entegrasyonu
+Responsive UI
+
+
+
+
+
+
+
+
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
