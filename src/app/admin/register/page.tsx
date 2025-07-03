@@ -1,11 +1,11 @@
 "use client";
 
-import {useForm} from "react-hook-form";
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 
 export default function AdminRegisterPage(){
   const {register, handleSubmit} = useForm();
 
-  const onSubmit = async (data: any) => {  // veritabanına bağlantı
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
   const res = await fetch("/api/auth/register", {
     method: "POST",
     body: JSON.stringify(data),

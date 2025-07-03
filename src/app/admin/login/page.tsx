@@ -1,16 +1,19 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from 'react-toastify';
+import { useAuthStore } from '@/store/authStore';
 
 export default function AdminLoginPage() {
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { login, setLoading: setAuthLoading } = useAuthStore();
 
-  async function onSubmit(data: any) {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setLoading(true);
     setError("");
     
@@ -31,19 +34,22 @@ export default function AdminLoginPage() {
 
       if (response.ok) {
         if (result.user.role !== 'admin') {
-        setError("Bu sayfaya erişim yetkiniz yok. Sadece adminler giriş yapabilir.");
-        return;
-      }
+          toast.error("Bu sayfaya erişim yetkiniz yok. Sadece adminler giriş yapabilir! 🚫");
+          return;
+        }
       
         console.log("Giriş başarılı:", result);
-      
+        // Zustand store'u güncelle
+        login(result.user);
+        toast.success("Giriş başarılı! Hoşgeldiniz! 👋");
         router.push("/admin/dashboard");
       } else {
-  
+        toast.error(result.message || "Giriş başarısız! ❌");
         setError(result.message || "Giriş başarısız");
       }
     } catch (error) {
       console.error("Hata:", error);
+      toast.error("Bir hata oluştu. Tekrar deneyin! ⚠️");
       setError("Bir hata oluştu. Tekrar deneyin.");
     } finally {
       setLoading(false);

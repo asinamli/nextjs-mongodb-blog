@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "bcryptjs": "^3.0.2",
+    "date-fns": "^4.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.0",
     "next": "15.3.4",
@@ -24,6 +26,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/date-fns": "^2.5.3",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20",
     "@types/react": "^19",
