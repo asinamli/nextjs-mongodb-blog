@@ -3,14 +3,14 @@ import { dbConnect } from '@/lib/dbConnect';
 import Post from '@/models/Posts';
 import slugify from 'slugify';
 
-
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     await dbConnect();
-    const post = await Post.findById(params.id);
+    const { id } = context.params;
+    const post = await Post.findById(id);
     
     if (!post) {
       return NextResponse.json(
@@ -29,14 +29,14 @@ export async function GET(
   }
 }
 
-
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     await dbConnect();
-    
+    const { id } = context.params;
+
     const { title, content, published } = await request.json();
     
     if (!title || !content) {
@@ -46,7 +46,6 @@ export async function PUT(
       );
     }
     
-
     const slug = slugify(title, {
       lower: true,
       strict: true,
@@ -55,7 +54,7 @@ export async function PUT(
     });
     
     const updatedPost = await Post.findByIdAndUpdate(
-      params.id,
+      id,
       { 
         title, 
         content, 
@@ -83,15 +82,15 @@ export async function PUT(
   }
 }
 
-
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     await dbConnect();
-    
-    const deletedPost = await Post.findByIdAndDelete(params.id);
+    const { id } = context.params;
+
+    const deletedPost = await Post.findByIdAndDelete(id);
     
     if (!deletedPost) {
       return NextResponse.json(
